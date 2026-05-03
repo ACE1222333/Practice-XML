@@ -1,0 +1,17 @@
+<bookstore>
+    <book>
+        <title>Harry Potter</title>
+        <author>J.K. Rowling</author>
+        <year>1956</year>
+    </book>
+    <book>
+        <title>Shadow and Bone</title>
+        <author>Leigh Bardugo</author>
+        <year>2012</year>
+    </book>
+    <book>
+        <title>Chronicles of Narnia</title>
+        <author>C.S. Lewis</author>
+        <year>2000</year>
+    </book>    
+</bookstore>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <p id="output"></p>
+    </head>
+    <body>
+        <script>
+            var request = new XMLHttpRequest();
+            var txt = "";
+            request.open("GET", "planets.xml", true);
+            request.onload = function() {
+                var xmlDoc = request.responseXML;
+                var x = xmlDoc.getElementsByTagName("name");
+                // var x = xmlDoc.getElementsByTagName("name");
+                for(i = 0; i < x.length; i++) {
+                   txt += x[i].textContent + "<br>";
+                    
+                }
+                document.getElementById("output").innerHTML = txt;
+                
+
+            };
+            
+           request.send();
+
+
+        </script>
+
+
+    </body>
+
+</html>

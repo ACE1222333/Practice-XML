@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <h1>Book Titles</h1>
+        <p id="book-titles"></p>
+        <button onclick="loadXml(1)">click to view</button>
+        <h1>Book Titles with Author</h1>
+        <p id="book-infos"></p>
+        <button onclick="loadXml(2)">click to view</button>
+        <h1>Title of Second Book</h1>
+        <p id="second-book"></p>
+        <button onclick="loadXml(3)">click this to view</button>
+        <h1>Book With latest Year</h1>
+        <p id="latest-book"></p>
+        <button onclick="loadXml(4)">click this to view</button>
+
+        <script>
+            var xhttp, xmlDoc, txt, element;
+
+            function loadXml(value) {
+                xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "books.xml", true);
+
+                xhttp.onreadystatechange = function() {
+                    if(this.readyState === 4 & this.status === 200) {
+                        // displayTitle(this);
+                        if (value === 1) {
+                            displayTitle(this);
+                        } else if (value === 2) {
+                            displayInfo(this);
+                        } else if (value === 3) {
+                            displaySecondBook(this);
+                        } else if (value === 4) {
+                            latestBook(this);
+                        }
+                        
+                    }
+                }
+                xhttp.send();
+            }
+
+            function displayTitle(xml) {
+                xmlDoc = xml.responseXML;
+                txt = "";
+                element = xmlDoc.getElementsByTagName("title");
+                for(i = 0; i < element.length; i++) {
+                    txt += element[i].childNodes[0].nodeValue + "<br>";
+                }
+                document.getElementById("book-titles").innerHTML = txt;
+            }
+
+            function displayInfo(xml) {
+                var title, author = "";
+                xmlDoc = xml.responseXML;
+                txt = "";
+                element = xmlDoc.getElementsByTagName("book");
+
+                
+                for(i = 0; i < element.length; i++) {
+                    title = element[i].getElementsByTagName("title")[0].textContent;
+                    author = element[i].getElementsByTagName("author")[0].textContent;
+                    txt += title + " - " + author + "<br>";
+                   
+                }
+                document.getElementById("book-infos").innerHTML = txt;
+            }
+
+            function displaySecondBook(xml) {
+                let title = "";
+                txt = "";
+                xmlDoc = xml.responseXML;
+                element = xmlDoc.getElementsByTagName("book")[1];
+                title = element.getElementsByTagName("title")[0].textContent;
+                txt = title
+                
+                document.getElementById("second-book").innerHTML = title;
+
+            }   
+
+            function latestBook(xml) {
+                let recentYear = 0;
+                let getIndex = 0;
+                let year = "";
+                txt = "";
+                xmlDoc = xml.responseXML;
+                element = xmlDoc.getElementsByTagName("book");
+
+                for(i = 0; i < element.length; i++) {
+                    year = parseInt(element[i].getElementsByTagName("year")[0].textContent);
+                    console.log(year);
+                    
+                    if(year > recentYear) {
+                        recentYear = year;
+                        getIndex = i;
+                    }
+                }
+                txt = element[getIndex].getElementsByTagName("title")[0].textContent + " - " + 
+                element[getIndex].getElementsByTagName("author")[0].textContent + " - " + 
+                element[getIndex].getElementsByTagName("year")[0].textContent;
+                document.getElementById("latest-book").innerHTML = txt;
+
+
+
+            }
+
+
+
+
+
+        </script>
+    </body>
+</html>

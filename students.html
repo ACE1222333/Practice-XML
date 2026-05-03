@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+        <h1>Student names</h1>
+        <ul id="list">
+        </ul>
+
+    </body>
+
+    <script>
+        var xhttp, txt, xmlDoc, elements;
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.open("GET", "students.xml", true);
+
+        xhttp.onreadystatechange = function() {
+            if(this.readyState == 4 & this.status == 200) {
+                xmlDoc = xhttp.responseXML;
+                elements = xmlDoc.getElementsByTagName("student");
+
+                for(i = 0; i < elements.length; i++) {
+                    txt += "<li>" + elements[i].getElementsByTagName("name")[0].textContent + "</li>"
+                }
+
+                document.getElementById("list").innerHTML = txt;
+            }
+        };
+
+        xhttp.send();
+
+
+
+    </script>
+</html>

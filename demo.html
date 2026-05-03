@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p id="demo"></p>
+        <button onclick="loadXml()">Click This to see Planets</button>
+    <script>
+        function loadXml() {
+             var xhttp = new XMLHttpRequest(); //Has a built in parser
+
+             xhttp.onreadystatechange = function() {
+                if(this.readyState == 4 & this.status == 200) {
+                    myFunction(this);
+                }
+             };
+             xhttp.open("GET","planets.xml", true);
+             xhttp.send();
+             
+        }
+
+        function myFunction(xml) {
+            var text, parser, xmlDoc, x, txt;
+            xmlDoc = xml.responseXML;
+            txt = ""; //Where the xml object will be stored after converting into string
+            x = xmlDoc.getElementsByTagName("size");
+            for (i = 0; i < x.length; i++) {
+            txt += x[i].childNodes[0].nodeValue + "<br>";
+            document.getElementById("demo").innerHTML = txt + x.length;
+            }
+        }
+
+
+        // text = "<universe><planet>" +
+        //     "<name>Earth</name>" +
+        //     "<size>1,200 hectares</size>" +
+        //     "<name>Uranus</name>" +
+        //     "<name>Saturn</name>" +
+        //     "<name>Jupiter</name>" +
+        //     "<name>Mars</name>" +
+        //     "</planet></universe>";
+        // parser = new DOMParser();
+        
+        // document.getElementById("demo").innerHTML = 
+        // xmlDoc.getElementsByTagName("size")[0].childNodes[0].nodeValue;
+    </script>
+    </body>
+</html>
